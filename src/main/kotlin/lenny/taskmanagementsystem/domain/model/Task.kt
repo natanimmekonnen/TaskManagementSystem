@@ -9,4 +9,5 @@ data class Task(
     val priority: TaskPriority,
 //    val assignedUser: String?,
     val dueDate: String?,
+    val projectId: String?,
     )

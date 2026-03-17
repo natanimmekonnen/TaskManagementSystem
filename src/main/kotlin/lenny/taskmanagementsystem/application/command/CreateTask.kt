@@ -18,6 +18,7 @@ class CreateTaskUseCase(
         description: String,
         type: TaskType,
         dueDate: String?,
+        projectId: String?,
 //        priority: TaskPriority,
 //        status: TaskStatus,
     ): Task {
@@ -26,6 +27,7 @@ class CreateTaskUseCase(
             description = description,
             type = type,
             dueDate = dueDate,
+            projectId = projectId,
 
         )
 

@@ -14,10 +14,16 @@ class TaskFactory  {
 //        status: TaskStatus,
 //        priority: TaskPriority,
         type: TaskType,
-        dueDate: String?
+        dueDate: String?,
+        projectId: String?,
     ): Task {
 
         require(title.isNotEmpty()) { "title cannot be empty" }
+         val priority=when (type) {
+             TaskType.PERSONAL->TaskPriority.LOW
+             TaskType.WORK->TaskPriority.MEDIUM
+             TaskType.URGENT->TaskPriority.HIGH
+         }
         return Task(
             id = UUID.randomUUID().toString(),
             title = title,
@@ -26,6 +32,7 @@ class TaskFactory  {
             dueDate = dueDate,
             priority = TaskPriority.LOW,
             type = type,
+            projectId = projectId,
         )
 
     }

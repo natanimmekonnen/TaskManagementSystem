@@ -24,7 +24,8 @@ class TaskCommandController(
             title = request.title,
             description = request.description,
             type = request.type,
-            dueDate = request.dueDate
+            dueDate = request.dueDate,
+            projectId = request.projectId,
         )
 
     @PatchMapping("/{id}/status")
@@ -45,7 +46,9 @@ class TaskCommandController(
             request.title,
             request.description,
             request.type,
-            request.dueDate
+            request.dueDate,
+            request.projectId
+
         )
     }
 
@@ -59,12 +62,14 @@ data class CreateTaskRequest(
     val title: String,
     val description: String,
     val type: TaskType,
-    val dueDate: String?
+    val dueDate: String?,
+    val projectId:String?
 )
 
 data class UpdateTaskRequest(
     val title: String,
     val description: String,
     val type: TaskType,
-    val dueDate: String?
+    val dueDate: String?,
+    val projectId:String?
 )

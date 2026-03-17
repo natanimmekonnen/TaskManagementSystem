@@ -44,7 +44,8 @@ private fun Task.toDocument(): TaskDocument =
         type = type.name,
         priority = priority.name,
         status = status.name,
-        dueDate = dueDate
+        dueDate = dueDate,
+        projectId = projectId,
     )
 
 private fun TaskDocument.toDomain(): Task =
@@ -55,5 +56,6 @@ private fun TaskDocument.toDomain(): Task =
         type = TaskType.valueOf(type),
         priority = TaskPriority.valueOf(priority),
         status = TaskStatus.valueOf(status),
-        dueDate = dueDate
+        dueDate = dueDate,
+        projectId = projectId,
     )

@@ -15,14 +15,15 @@ class UpdateTaskDetailsUseCase(
         title: String,
         description: String,
         type: TaskType,
-        dueDate: String?
+        dueDate: String?,
+        projectId: String?,
     ): Boolean {
 
         val task = taskRepository.findById(id) ?: return false
         val newPriority=when(type){
             TaskType.PERSONAL-> TaskPriority.LOW
             TaskType.WORK -> TaskPriority.MEDIUM
-            else -> TaskPriority.HIGH
+            TaskType.URGENT -> TaskPriority.HIGH
         }
 
         val updatedTask = task.copy(
@@ -30,7 +31,9 @@ class UpdateTaskDetailsUseCase(
             description = description,
             type = type,
             priority = newPriority,
-            dueDate = dueDate
+            dueDate = dueDate,
+            projectId = projectId,
+
         )
 
         taskRepository.update(updatedTask)

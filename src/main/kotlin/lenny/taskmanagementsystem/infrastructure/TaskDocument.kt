@@ -13,5 +13,6 @@ data class TaskDocument(
     val type: String,
     val priority: String,
     val dueDate: String?,
+    val projectId:String?
 
 )
