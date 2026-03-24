@@ -6,5 +6,5 @@ interface ProjectRepository{
     fun save(project: Project):Project
     fun findById(id:String):Project?
     fun findAll(): List<Project>
-    fun deleById(id:String)
+    fun deleteById(id:String)
 }

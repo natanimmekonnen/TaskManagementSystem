@@ -15,7 +15,6 @@ class TaskFactory  {
 //        priority: TaskPriority,
         type: TaskType,
         dueDate: String?,
-        projectId: String?,
     ): Task {
 
         require(title.isNotEmpty()) { "title cannot be empty" }
@@ -32,7 +31,6 @@ class TaskFactory  {
             dueDate = dueDate,
             priority = TaskPriority.LOW,
             type = type,
-            projectId = projectId,
         )
 
     }

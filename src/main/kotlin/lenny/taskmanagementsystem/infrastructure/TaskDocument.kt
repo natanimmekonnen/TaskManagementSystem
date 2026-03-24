@@ -1,18 +1,16 @@
 package lenny.taskmanagementsystem.infrastructure
 
-import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.Document
+import lenny.taskmanagementsystem.domain.model.TaskPriority
+import lenny.taskmanagementsystem.domain.model.TaskStatus
+import lenny.taskmanagementsystem.domain.model.TaskType
 
-@Document(collection = "tasks")
 data class TaskDocument(
-    @Id
     val id: String,
     val title: String,
-    val status: String,
     val description: String,
-    val type: String,
-    val priority: String,
+    val status: TaskStatus,
+    val type: TaskType,
+    val priority: TaskPriority,
     val dueDate: String?,
-    val projectId:String?
-
+    val activities: List<ActivityDocument> = emptyList()
 )

@@ -1,8 +1,8 @@
 package lenny.taskmanagementsystem.domain.model
 
-data class Project(
+
+data class Activity(
     val id: String,
-    val name: String,
     val description: String,
-    val tasks: List<Task> = emptyList()
+    val timestamp: String
 )

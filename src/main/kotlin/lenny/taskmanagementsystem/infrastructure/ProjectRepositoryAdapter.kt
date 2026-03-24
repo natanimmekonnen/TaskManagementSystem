@@ -11,7 +11,9 @@ class ProjectRepositoryAdapter(
 ) : ProjectRepository {
 
     override fun save(project: Project): Project {
-        return mongoRepository.save(project.toDocument()).toDomain()
+        return mongoRepository
+            .save(ProjectMapper.toDocument(project))
+            .let { ProjectMapper.toDomain(it) }
     }
 
     override fun findById(id: String): Project? {
@@ -22,12 +24,13 @@ class ProjectRepositoryAdapter(
         return mongoRepository.findAll().map { it.toDomain() }
     }
 
-    override fun deleById(id: String) {
+    override fun deleteById(id: String) {
         mongoRepository.deleteById(id)
     }
 
 
 }
+
 private fun Project.toDocument(): ProjectDocument =
     ProjectDocument(
         id = id,
@@ -41,3 +44,5 @@ private fun ProjectDocument.toDomain(): Project =
         name = name,
         description = description
     )
+
+

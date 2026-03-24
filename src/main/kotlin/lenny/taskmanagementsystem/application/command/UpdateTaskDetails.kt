@@ -2,42 +2,46 @@ package lenny.taskmanagementsystem.application.command
 
 import lenny.taskmanagementsystem.domain.model.TaskPriority
 import lenny.taskmanagementsystem.domain.model.TaskType
-import lenny.taskmanagementsystem.domain.repository.TaskRepository
+import lenny.taskmanagementsystem.domain.repository.ProjectRepository
 import org.springframework.stereotype.Service
 
 @Service
 class UpdateTaskDetailsUseCase(
-    private val taskRepository: TaskRepository
+    private val projectRepository: ProjectRepository
 ) {
 
     fun execute(
-        id: String,
+        projectId: String,
+        taskId: String,
         title: String,
         description: String,
         type: TaskType,
-        dueDate: String?,
-        projectId: String?,
+        dueDate: String?
     ): Boolean {
 
-        val task = taskRepository.findById(id) ?: return false
-        val newPriority=when(type){
-            TaskType.PERSONAL-> TaskPriority.LOW
+        val project = projectRepository.findById(projectId) ?: return false
+
+        val newPriority = when (type) {
+            TaskType.PERSONAL -> TaskPriority.LOW
             TaskType.WORK -> TaskPriority.MEDIUM
             TaskType.URGENT -> TaskPriority.HIGH
         }
 
-        val updatedTask = task.copy(
-            title = title,
-            description = description,
-            type = type,
-            priority = newPriority,
-            dueDate = dueDate,
-            projectId = projectId,
+        val updatedTasks = project.tasks.map { task ->
+            if (task.id == taskId) {
+                task.copy(
+                    title = title,
+                    description = description,
+                    type = type,
+                    priority = newPriority,
+                    dueDate = dueDate
+                )
+            } else task
+        }
 
-        )
+        val updatedProject = project.copy(tasks = updatedTasks)
 
-        taskRepository.update(updatedTask)
-
+        projectRepository.save(updatedProject)
         return true
     }
 }
