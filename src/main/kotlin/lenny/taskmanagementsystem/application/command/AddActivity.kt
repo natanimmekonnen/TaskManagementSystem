@@ -1,5 +1,7 @@
 package lenny.taskmanagementsystem.application.command
 
+import lenny.taskmanagementsystem.domain.factory.ActivityFactory
+import lenny.taskmanagementsystem.domain.factory.TaskFactory
 import lenny.taskmanagementsystem.domain.model.Activity
 import lenny.taskmanagementsystem.domain.model.Project
 import lenny.taskmanagementsystem.domain.repository.ProjectRepository
@@ -8,7 +10,8 @@ import java.util.UUID
 
 @Service
 class AddActivityToTaskUseCase(
-    private val projectRepository: ProjectRepository
+    private val projectRepository: ProjectRepository,
+    private val activityFactory: ActivityFactory
 ) {
     fun execute(
         projectId: String,
@@ -19,7 +22,7 @@ class AddActivityToTaskUseCase(
 
         val project = projectRepository.findById(projectId) ?: return null
 
-        val activity = Activity(
+        val activity = activityFactory.create(
             id = UUID.randomUUID().toString(),
             description = description,
             timestamp = timestamp

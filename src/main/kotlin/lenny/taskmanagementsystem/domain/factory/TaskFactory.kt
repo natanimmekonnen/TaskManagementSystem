@@ -11,8 +11,6 @@ class TaskFactory  {
      fun create(
         title: String,
         description: String,
-//        status: TaskStatus,
-//        priority: TaskPriority,
         type: TaskType,
         dueDate: String?,
     ): Task {
